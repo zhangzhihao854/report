@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div>
-		<div id="" class="card" ref='card'>
+		<div id="" class="card" ref='card' v-if="this.json_data!=''&&this.json_data.type!=this.page?false:true">
 			<div id="left">
 				<div  v-for="item in typeArr" v-if="item.type==item.name" :class="item.text=='本半年'?'font':'circle'">{{item.text}}</div>
 			</div>
@@ -136,20 +136,16 @@ watch:{
 			this.typeArr[j].type=this.page
 		}
 
-  		if(this.json_data.type!=this.page&&this.json_data.type!=undefined){
-  			this.$refs.card.style.display='none'
-  		}else{
-  			this.$refs.card.style.display='block'
-  			
-  		}
+
 	}	
 	}
 },
 mounted(){
+
 	
 },
   created: function() { 
-  
+
 	this.set_="填写"
   	var time=new Date()
 	var year=time.getFullYear()
@@ -187,13 +183,13 @@ mounted(){
 		console.log(this.time2)
   		if(json_data.time==this.time2){
   			this.set_="查看"
-//		if(this.json_data.type!='日报'){
-//			this.$refs.card.style.display='none'
-//		}
-  			
   		}
   	}
+
   	this.switch()
+
+  
+  	
   }
 }
 </script>

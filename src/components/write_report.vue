@@ -4,7 +4,7 @@
 			
 
 		<div id="header">
-			<router-link to="/">返回</router-link>
+			<router-link to="/"><返回</router-link>
 		</div>
 		<div id="" class="card" v-if="page==0">
 			<div id="left">
@@ -13,7 +13,7 @@
 			<div id="right">
 				<div id="time">
 					<p id="timeText" v-html="time" style="float: left;font-size: 20px;line-height: 100px;"></p>
-					<button ref='submit' :plain="true" @click="open2" v-text="state" style="border:none;background:none;outline:none;float: right;color: #5e9ffc;line-height: 100px;margin-right: 50px;"></button>
+					<button  ref='submit' :plain="true" @click="open2" v-text="state" style="border:none;background:none;outline:none;float: right;color: #5e9ffc;line-height: 100px;margin-right: 50px;"></button>
 				</div>
 				<ul class="bottom">
 					<li v-for="(iteam,i) in arr">
@@ -87,11 +87,16 @@
 	        	 	localStorage.setItem('data',JSON.stringify(obj2))
 	        	 }
 	        this.$message({
+	        	duration:1000,
 	          message: '提交成功',
 	          type: 'success'
 	          
 	        })}else{
-	        	 this.$message('已提交成功，请耐心等待管理员测评')
+	        	 this.$message({
+	        	    message:'已提交成功，请耐心等待管理员测评',
+	        		duration:1000,
+	        	 	
+	        	 	})
 	        	 
 	        }
       },
@@ -154,8 +159,8 @@
 			#header{
 				padding-top: 2%;
 				padding-left: 2%;
-				width: 80%;
-
+				width: 100%;
+				box-sizing: border-box;
 				background: white;
 				position: relative;
 			}
@@ -198,7 +203,6 @@
 				width: 100px;
 				height: 50px;
 				line-height: 50px;
-
 				position: absolute;
 				left: calc(50% - 50px);
 				top: calc(50% - 25px);
