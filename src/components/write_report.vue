@@ -81,7 +81,7 @@
 	        	 	'content3':this.value[2],
 	        	 	'content4':this.value[3]
 	        	 }
-	        	 var obj2={'type':this.$route.params.id,'time':this.time2,'content':[obj]}
+	        	 var obj2={'type':this.$route.params.id,'state':'待检测','time':this.time2,'content':[obj]}
 	        	 var report_json=localStorage.getItem('data')
 	        	 if(!report_json){
 	        	 	localStorage.setItem('data',JSON.stringify(obj2))

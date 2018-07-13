@@ -5,58 +5,59 @@
 
 		<div id="header">
 		<ul id="nav">
-			<li class="blue">日报</li>
-			<li>周报</li>
-			<li>月报</li>
-			<li>季报</li>
-			<li>半年报</li>
-			<li>年报</li>
+        			
+			 <el-select v-model="value" placeholder="请选择" size="medium" >
+			    <el-option
+			      v-for="item in options"
+			      :key="item.value"
+			      :label="item.label"
+			      :value="item.value"
+
+			      >
+			    </el-option>
+
+			  </el-select>
+			    <h2 id="text">团队报告</h2>
+			  
+			    <div class="block">
+	
+			    <el-date-picker
+			      v-model="value1"
+			      type="date"
+			      placeholder="选择日期">
+			    </el-date-picker>
+			  </div>
 		</ul>
-			<p id="text">我的日报</p>
+		
+		
 		</div>
-		<div id="" class="card">
+	<div id="" class="card" >
 			<div id="left">
 				<div id="circle">今日</div>
 			</div>
 			<div id="right">
 				<div id="time">
-					<p id="timeText"></p>
+					<p id="timeText" v-html="time" style="float: left;font-size: 20px;line-height: 100px;"></p>
+					<button  ref='submit' :plain="true" @click="open2" v-text="state" style="border:none;
+						background:none;outline:none;float: right;color: #5e9ffc;line-height: 100px;margin-right: 50px;"></button>
 				</div>
 				<ul class="bottom">
-					<li>
+					<li v-for="(iteam,i) in arr">
 						<div class="img_box"><img src="../../static/img/aa_03.png"/></div>
 						<div class="rit">
-							<p>今日工作记录</p>
-							<div class="btn"><a href="#">请填写今日工作记录</a></div>
+							<p>{{iteam.name}}</p>
+							<div class="btn">
+								<mu-text-field v-if="iteam.show=='n'" v-model="values[i]"  multi-line :rows="1" :rows-max="6"  placeholder="请输入信息..."></mu-text-field>
+								<a  @click="num(i)" v-if="iteam.show=='y'">请填写{{iteam.name}}</a>
+							</div>
 						</div>
 					</li>
-					<li>
-						<div class="img_box"><img src="../../static/img/aa_03.png"/></div>
-						<div class="rit">
-							<p>需协调事项</p>
-							<div class="btn"><a href="#">请填写需协调事项</a></div>
-						</div>
-					</li>
-					<li>
-						<div class="img_box"><img src="../../static/img/aa_03.png"/></div>
-						<div class="rit">
-							<p>其它情况反映</p>
-							<div class="btn"><a href="#">请填写其它情况反映</a></div>
-						</div>
-					</li>
-					<li>
-						<div class="img_box"><img src="../../static/img/aa_03.png"/></div>
-						<div class="rit">
-							<p>明日计划</p>
-							<div class="btn"><a href="#">请填写明日计划</a></div>
-						</div>
-					</li>
+					
 					<li >
 						<div class="img_box"><img src="../../static/img/aa_06.png"/></div>
 						<div class="rit">
 							<p>日报附件</p>
 							<div class="btn" ><div id="filesty"><input type="file" id="imageFile" style="width: 100px;height: 100px; opacity: 0; position: relative; top: 0;left: 0;"  /></div></div>
-
 							
 						</div>
 				
@@ -68,21 +69,7 @@
 			
 			<div style="clear: both;"></div>
 		</div>
-		<div id="" class="card">
-			2
-		</div>
-		<div id="" class="card">
-			3
-		</div>
-		<div id="" class="card">
-			4
-		</div>
-		<div id="" class="card">
-			5
-		</div>
-		<div id="" class="card">
-			6
-		</div>
+		
 	</div>
 		</div>
 	
@@ -92,7 +79,81 @@
 	export default {
 		name:'tab1',
   data:function(){
-    return {}
+    return {
+    	state:'提交',
+    	arr:[
+    		{'name':'今日工作记录','show':"y"},
+    		{'name':'需协调事项','show':"y"},
+    		{'name':'其它情况反映','show':"y"},
+    		{'name':'明日计划','show':"y"}
+    		],
+    		time:'',
+    		time2:'',
+    	 options: [{
+          value: '选项1',
+          label: '全部人员'
+        }, {
+          value: '选项2',
+          label: '双皮奶'
+        }, {
+          value: '选项3',
+          label: '蚵仔煎'
+        }, {
+          value: '选项4',
+          label: '龙须面'
+        }, {
+          value: '选项5',
+          label: '北京烤鸭'
+        }],
+        value: '选项1',
+
+		pickerOptions1: {
+          disabledDate(time) {
+            return time.getTime() > Date.now();
+            
+           }
+          
+          },
+        value1: '',
+        values:[]
+          
+    }
+  },
+    methods:{
+  	 open2() {
+  	 	if(this.state=="提交"){
+  	 		this.state='待测评'
+  	 		this.$refs.submit.style.color="red"
+  	 		localStorage.setItem('state','待检测')
+  	 		var obj={
+	        	 	'content1':this.value[0],
+	        	 	'content2':this.value[1],
+	        	 	'content3':this.value[2],
+	        	 	'content4':this.value[3]
+	        	 }
+	        	 var obj2={'type':this.$route.params.id,'state':'待检测','time':this.time2,'content':[obj]}
+	        	 var report_json=localStorage.getItem('data')
+	        	 if(!report_json){
+	        	 	localStorage.setItem('data2',JSON.stringify(obj2))
+	        	 }
+	        this.$message({
+	        	duration:1000,
+	          message: '提交成功',
+	          type: 'success'
+	          
+	        })}else{
+	        	 this.$message({
+	        	    message:'已提交成功，请耐心等待管理员测评',
+	        		duration:1000,
+	        	 	
+	        	 	})
+	        	 
+	        }
+      },
+  	num(i){
+  		this.arr[i].show='n'
+
+  	}
   },
   mounted: function() { 
   	var time=new Date()
@@ -116,35 +177,20 @@
 		week2="六"
 	}else if(week==7){
 		week2="日"
-	}
-	document.getElementById('timeText').innerHTML=year+"-"+month+"-"+day+"<i>"+" (周"+week2+")"+"</i>"
+	}	
+	this.time=year+"-"+month+"-"+day+"<i>"+" (周"+week2+")"+"</i>"
+	this.time2=year+"-"+month+"-"+day
 	
-	var ul=document.getElementById("nav");
-	var card=document.getElementsByClassName("card");
-	for(let i=0;i<6;i++){
-		ul.children[i].index=i
-		if(ul.children[i].index>0){
-			card[i].style.display="none"
-		}
-	}
-	
-	ul.addEventListener("click",function(){
-		for(let i=0;i<6;i++){
-			ul.children[i].className=""
-			card[i].style.display="none"
-			
-		}
-		var idx=window.event.target.index;
-		card[idx].style.display="block"
-		window.event.target.className="blue"
 
-	})
 	
   }
 }
 </script>
 
 <style scoped="scoped">
+	.block{
+		float: right;
+	}
 	#tab1{
 		height: 100%;
 		width:calc(100% - 212px);
@@ -176,8 +222,9 @@
 				text-decoration: inherit;
 			}
 			#nav{
-				padding: 10px;
+				padding: 8px;
 				font-size: 12px;
+				padding-left: 20px;
 			}
 			#nav li{
 				border-left: 1px solid #9a9a9a;

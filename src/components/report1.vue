@@ -16,7 +16,7 @@
 			</div>
 			<div id="right">
 				<div id="time">
-					<p id="timeText" v-html="time" style="float: left;font-size: 20px;line-height: 100px;"><!--{{time}}--></p><a href="#" v-text="state" style="float: right;color: #5e9ffc;line-height: 100px;margin-right: 50px;"></a>
+					<p id="timeText" v-html="time" style="float: left;font-size: 20px;line-height: 100px;">	</p>
 				</div>
 				<ul class="bottom">
 					<li v-for="(iteam,i) in arr">

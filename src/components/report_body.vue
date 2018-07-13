@@ -9,12 +9,17 @@
 				<div id="time">
 					<p id="timeText" v-html="time" style="float: left;font-size: 20px;padding-top:10px;"></p>
 				</div>
-				<div v-if="status=='show'" class="status"><router-link :to="'/write_report/'+type" >[{{set_}}{{type}}内容]</router-link></div>
-				<!--<div v-if="status!='show'" class="status">已填写月报<a href="#">[查看月报]</a></div>-->
+				<div v-if="status=='show'" class="status">
+					<el-button type='text' @click="open(json_data)" v-if="this.set_=='查看'"  >[{{set_}}{{type}}内容]</el-button>
+					<el-button type='text' >
+						<router-link v-if="this.set_!='查看'"  :to="'/write_report/'+type" >[{{set_}}{{type}}内容]</router-link>
+					</el-button>
+				</div>
 			</div>
 			<div style="clear: both;"></div>
 			
 		</div>
+		
 		<div id="" class="card" v-for="item in card2">
 			<div id="left">
 				<div class="circle" v-if="item.type!='月报'" style="width: 10px;height: 10px;"></div>
@@ -22,10 +27,14 @@
 			</div>
 			<div id="right">
 				<div id="time">
-					<p id="timeText"  style="float: left;font-size: 20px;padding-top:10px;">{{item.time}}</p>
+					<p id="timeText"  style="float: left;font-size: 20px;padding-top:10px;">{{item.time}}{{item.week}}</p>
 				</div>
-				<div v-if="status=='show'" class="status"><a href="#">[查看{{item.type}}内容]</a></div>
-				<div v-if="status!='show'" class="status">已填写月报<a href="#">[查看月报]</a></div>
+				<!--<el-button type='text' @click="open2"  >-->
+				<div v-if="status=='show'" class="status">
+					<el-button type='text' @click="open(item)"  >[查看{{item.type}}内容]</el-button>
+				</div>
+				<!--</el-button>-->
+				
 			</div>
 			<div style="clear: both;"></div>
 			
@@ -55,43 +64,43 @@
     	month:'',
     	time2:"",
     	card:[
-    		{'type':'日报','time':"2018-7-5",'content':[{
+    		{'type':'日报','time':"2018-7-5",'state':'测评完成','content':[{
     		'content1':'今日晴空万里',
     		'content2':'这是一条信息',
     		'content3':'这是一条信息',
     		'content4':'这是一条信息'
     		}]},
-    		{'type':'半年报','time':"2018-7-5",'content':[{
+    		{'type':'半年报','time':"2018-7-5",'state':'测评完成','content':[{
     		'content1':'今日晴空万里',
     		'content2':'这是一条信息',
     		'content3':'这是一条信息',
     		'content4':'这是一条信息'
     		}]},
-    		{'type':'年报','time':"2018-7-5",'content':[{
+    		{'type':'年报','time':"2018-7-5",'state':'测评完成','content':[{
     		'content1':'今日晴空万里',
     		'content2':'这是一条信息',
     		'content3':'这是一条信息',
     		'content4':'这是一条信息'
     		}]},
-    		{'type':'月报','time':"2018-6-5",'content':[{
+    		{'type':'月报','time':"2018-6-5",'state':'测评完成','content':[{
     		'content1':'今日晴空万里',
     		'content2':'这是一条信息',
     		'content3':'这是一条信息',
     		'content4':'这是一条信息'
     		}]},
-    		{'type':'季报','time':"2018-7-4",'content':[{
+    		{'type':'季报','time':"2018-7-4",'state':'测评完成','content':[{
     		'content1':'今日晴空万里',
     		'content2':'这是一条信息',
     		'content3':'这是一条信息',
     		'content4':'这是一条信息'
     		}]},
-    		{'type':'日报','time':"2018-7-3",'content':[{
+    		{'type':'日报','time':"2018-7-3",'state':'测评完成','content':[{
     		'content1':'今日晴空万里',
     		'content2':'这是一条信息',
     		'content3':'这是一条信息',
     		'content4':'这是一条信息'
     		}]},
-    		{'type':'周报','time':"2018-7-2",'content':[{
+    		{'type':'周报','time':"2018-7-2",'state':'测评完成','content':[{
     		'content1':'今日晴空万里',
     		'content2':'这是一条信息',
     		'content3':'这是一条信息',
@@ -101,7 +110,7 @@
     	],
     	card2:[],
     	type:'',
-    	set_:'on',
+    	set_:'',
     	json_data:[],
 
 
@@ -109,6 +118,44 @@
   },
   
   methods:{
+  	 open(data) {
+  	 	  const h = this.$createElement;
+        this.$msgbox({
+          title: data.time+' '+data.type+'内容',
+          message: h('p', null, [
+          h('p', null, [
+            h('span', { style: 'margin-left:20px' }, '工作记录：'),
+            h('span', null, data.content[0].content1)
+             ]),
+              h('p', null, [
+            h('span', { style: 'margin-left:20px' }, '需协调事项：'),
+            h('span', null, data.content[0].content2)
+             ]),
+              h('p', null, [
+            h('span', { style: 'margin-left:20px' }, '其他情况反应：'),
+            h('span', null, data.content[0].content3)
+             ]),
+              h('p', null, [
+            h('span', { style: 'margin-left:20px' }, '明日计划：'),
+            h('span', null, data.content[0].content4)
+             ]),
+              h('p', null, [
+            h('span', { style: 'margin-left:20px' }, '状态：'),
+            h('span', {style:'color:red'}, data.state)
+             ]),
+          ]),
+          showCancelButton: false,
+          confirmButtonText: '确定',
+
+   })
+      },
+  
+  	getWeek(dateString){
+    	var date;
+        var dateArray = dateString.split("-");
+        date = new Date(dateArray[0], parseInt(dateArray[1] - 1),dateArray[2] );
+    	return " (周" + "日一二三四五六".charAt(date.getDay())+')';
+},
   	switch(){
   		this.type=this.page
 		this.card2=[]
@@ -140,10 +187,6 @@ watch:{
 	}	
 	}
 },
-mounted(){
-
-	
-},
   created: function() { 
 
 	this.set_="填写"
@@ -166,7 +209,7 @@ mounted(){
 		week2="五"
 	}else if(week==6){
 		week2="六"
-	}else if(week==7){
+	}else if(week==0){
 		week2="日"
 	}
 	this.month=month
@@ -178,14 +221,19 @@ mounted(){
   	}else{
   		var json_data=JSON.parse(report_data)
   		this.json_data=json_data
-		this.card.unshift(json_data)
-		console.log(this.card)
-		console.log(this.time2)
+
+		
   		if(json_data.time==this.time2){
   			this.set_="查看"
+  		}else{
+		this.card.unshift(json_data)
+  			
   		}
   	}
-
+	for(let i=0;i<this.card.length;i++){
+		var getWeek=this.getWeek(this.card[i].time)
+		this.card[i].week=getWeek
+	}
   	this.switch()
 
   
