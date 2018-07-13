@@ -30,22 +30,22 @@
     	"child":[
     		{"childname":"我的报告",'childimg':"../../static/aa_11.png","path":'/report_1'},
     		{"childname":"团队报告",'childimg':"../../static/aa_14.png","path":'/report_2'},
-    		{"childname":"同事报告",'childimg':"../../static/aa_14.png","path":'report_3'},
-    		{"childname":"模板设置",'childimg':"../../static/aa_14.png","path":'report_4'},
+    		{"childname":"同事报告",'childimg':"../../static/aa_14.png","path":'/report_3'},
+    		{"childname":"模板设置",'childimg':"../../static/aa_14.png","path":'/report_4'},
     	]
     	},
     	{"name":'考评','img':'../../static/aa_16.png',
     	"child":[
-    		{"childname":"我的绩效",'childimg':"../../static/aa_14.png","path":'evaluation_1'},
-    		{"childname":"团队绩效",'childimg':"../../static/aa_14.png","path":'evaluation_2'},
-    		{"childname":"我考评的",'childimg':"../../static/aa_14.png","path":'evaluation_3'},
+    		{"childname":"我的绩效",'childimg':"../../static/aa_14.png","path":'/evaluation_1'},
+    		{"childname":"团队绩效",'childimg':"../../static/aa_14.png","path":'/evaluation_2'},
+    		{"childname":"我考评的",'childimg':"../../static/aa_14.png","path":'/evaluation_3'},
 
     	]},
     	{"name":'任务','img':'../../static/aa_18.png',
     	"child":[
-    		{"childname":"我的报告",'childimg':"../../static/aa_14.png","path":'task_1'},
-    		{"childname":"团队报告",'childimg':"../../static/aa_14.png","path":'task_2'},
-    		{"childname":"同事报告",'childimg':"../../static/aa_14.png","path":'task_3'},
+    		{"childname":"我的报告",'childimg':"../../static/aa_14.png","path":'/task_1'},
+    		{"childname":"团队报告",'childimg':"../../static/aa_14.png","path":'/task_2'},
+    		{"childname":"同事报告",'childimg':"../../static/aa_14.png","path":'/task_3'},
 
     	]},
     	{"name":'设置','img':'../../static/aa_20.png',

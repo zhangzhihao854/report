@@ -92,9 +92,8 @@
 				z-index: 9;
 			}
 			#header{
-				border-top: 1px solid #9a9a9a;
-				border-bottom: 1px solid #9a9a9a;
-				
+				margin-top: 10px;
+				box-shadow:5px 0px 4px 1px silver;
 				margin-top:15px;
 				width: 100%;
 				height: 50px;

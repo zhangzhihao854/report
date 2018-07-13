@@ -203,8 +203,8 @@
 	}
 
 			#header{
-				border-bottom:10px #ededee solid;
-				border-top:10px #ededee solid;
+				margin-top: 10px;
+				box-shadow:5px 0px 4px 1px silver;
 				width: 100%;
 				height: 50px;
 				background: white;
