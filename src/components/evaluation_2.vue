@@ -3,16 +3,18 @@
 		<div id="box2">
 		<div id="header">
 		<ul id="nav">		
-			 <el-select v-model="value" placeholder="请选择" size="medium" >
-			    <el-option
+			      
+			 <el-select v-model="value" placeholder="请选择" size="medium"  >
+			    <el-option style="display: flex;flex-direction:column"
 			      v-for="item in options"
 			      :key="item.value"
 			      :label="item.label"
 			      :value="item.value"
 
+
 			      >
 			    </el-option>
-
+					
 			  </el-select>
 			    <h2 id="text">
 					 <el-dropdown @command="handleCommand">
@@ -85,6 +87,7 @@
 		            name: '王小虎',
 		            address: '上海市普陀区金沙江路 1519 弄'
 		          }, {
+				 	ranking:4,
 		            date: '2016-05-03',
 		            name: '王小虎',
 		            address: '上海市普陀区金沙江路 1516 弄'
@@ -114,7 +117,9 @@
 		},
 		methods:{
 			 handleCommand(command) {
-		        
+		        this.$alert(``, {
+		          dangerouslyUseHTMLString: true
+		        });
 		     },
 			 handleClick(row) {
 		        console.log(row);
