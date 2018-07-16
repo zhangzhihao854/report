@@ -2,6 +2,7 @@
 	<div id="left_page">
 		<div id="box">
 			<ul>
+				
 				<li v-for="(parent,i) in obj"  ref="myli" style="z-index: 10;background: #3A4357;">
 					<div style="width: 100%;height: 57px;" @click="close(i)">
 					<div class="l"><img v-bind:src="parent.img"/></div><p class="m" >{{parent.name}}</p><div class="r"><img ref="myimg" src="./assets/aa_06.png"/></div>
@@ -9,7 +10,11 @@
 					<ul class="ul2" style="opacity: 0;display: none;" ref="myul2">
 						<li v-for="(iteam,index) in parent.child" @click="checked(i,index)">
 							<router-link :to="iteam.path">
-							<div class="l2" style="width: 11px;"><img :src="iteam.childimg" ref="checked_img"/></div><p :class="i==0&&index===0?'m3':'m2'"  ref="myli2">{{iteam.childname}}</p><div class="r2"></div>
+								<div class="l2" style="width: 11px;">
+									<img :src="iteam.childimg" ref="checked_img"/>
+								</div>
+								<p :class="i==0&&index===0?'m3':'m2'"  ref="myli2" v-if="iteam.path!=''">{{iteam.childname}}</p>
+								<p :class="i==0&&index===0?'m3':'m2'"  ref="myli2" v-if="iteam.path==''"  @click="modal">{{iteam.childname}}</p>
 							</router-link>
 						</li>
 						<div style="clear: both;"></div>
@@ -17,6 +22,9 @@
 					</ul>
 				</li>
 			</ul>
+			<!--<div class="modal">
+				
+			</div>-->
 		</div>
 	</div>
 </template>
@@ -25,6 +33,7 @@
 	export default {
   data:function(){
     return {
+    	
     	obj:[
     	{"name":'报告','img':'../../static/aa_03.png',
     	"child":[
@@ -38,7 +47,7 @@
     	"child":[
     		{"childname":"我的绩效",'childimg':"../../static/aa_14.png","path":'/evaluation_1'},
     		{"childname":"团队绩效",'childimg':"../../static/aa_14.png","path":'/evaluation_2'},
-    		{"childname":"我考评的",'childimg':"../../static/aa_14.png","path":'/evaluation_3'},
+    		{"childname":"我考评的",'childimg':"../../static/aa_14.png","path":''},
 
     	]},
     	{"name":'任务','img':'../../static/aa_18.png',
@@ -61,6 +70,7 @@
     		'status':'close',
     		'index':99
     	},
+    	bool:false,
     	check:{
     		'i1':0,
     		'i2':0
@@ -68,6 +78,10 @@
     }
  },
   methods:{
+  	modal(){
+  		this.bool=true
+  		this.$emit('bool',this.bool)
+  	},
   	checked(i1,i2){
   		if(i1==this.check.i1&&i2==this.check.i2){
 		}else{
@@ -109,8 +123,6 @@
 		}
   },
   	close(i){
-  	  
-  	
 	if(this.status.status=='close'){
 		this.set_open(i)
 	}else if(this.status.status=='open'&&(this.status.index==i||this.status.index==99)){
@@ -126,6 +138,12 @@
 
 <style scoped="scoped">
 	
+	.modal{
+		width: 500px;
+		height: 100%;
+		background: white;
+		z-index: 99;
+	}
 *{transition: all .4s;}
 	#box ul li{
 		position: relative;

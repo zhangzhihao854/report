@@ -10,7 +10,7 @@
 			<p id="text" >我的报告</p>
 		</div>
 			<div class="tabBox" style="width: 98%;margin: 1%;">
-		 	<el-table  :data="tableData"  :header-cell-style="getRowClass">
+		 	<el-table  :data="tableData"  :header-cell-style="getRowClass" >
 		      <el-table-column prop="date" label="日期" >
 		      </el-table-column>
 		      <el-table-column prop="state" label="状态">
@@ -38,46 +38,11 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 	export default {		
   data:function(){
     return {
-    	 tableData: [{
-
-		            date: '2016-05-02',
-		            name: '王小虎',
-		            state:"未填写",
-		            branch:"嘉仕",
-		            people:"admin",
-		            time:"10.24",
-		            address: '上海市普陀区金沙江路 1518 弄'
-		          }, {
-
-		            date: '2016-05-04',
-		            name: '王小虎',
-		            state:"未填写",
-		            branch:"嘉仕",
-		            people:"admin",
-		            time:"10.24",
-		            address: '上海市普陀区金沙江路 1517 弄'
-		          }, {
-
-		            date: '2016-05-01',
-		            name: '王小虎',
-		            state:"未填写",
-		            branch:"嘉仕",
-		            people:"admin",
-		            time:"10.24",
-		            address: '上海市普陀区金沙江路 1519 弄'
-		          }, {
-		            date: '2016-05-03',
-		            name: '王小虎',
-		            state:"未填写",
-		            branch:"嘉仕",
-		            people:"admin",
-		            time:"10.24",
-		            address: '上海市普陀区金沙江路 1516 弄'
-		          }],
+    	 tableData: [],
     	page:0,
     	i:0,
     	time:"",
@@ -114,6 +79,12 @@
   	}
   },
   created: function() { 
+  	var url='../../static/json/evluathion_1.json'
+axios.get(url).then((response)=>{
+    console.log(response.data);
+    this.tableData=response.data
+})
+
   	var time=new Date()
 	var year=time.getFullYear()
 	var month=time.getMonth()+1
@@ -142,9 +113,7 @@
 </script>
 
 <style scoped="scoped">
-			thead{
-				background: red;
-			}
+			
 			#evaluation_1{
 				height: auto;
 				width:calc(100% - 212px);
