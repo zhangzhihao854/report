@@ -156,7 +156,7 @@
 	}
 </script>
 
-<style>		
+<style scoped="scoped">		
 
 	
 			.el-icon-caret-left,.el-icon-caret-right{

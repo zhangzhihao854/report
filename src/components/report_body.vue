@@ -215,7 +215,7 @@ watch:{
 	this.month=month
 	this.time=year+"-"+month+"-"+day+"<i>"+" (周"+week2+")"+"</i>"
 	this.time2=year+"-"+month+"-"+day
-	
+
 	var report_data=localStorage.getItem('data')
   	if(!report_data){	
   	}else{

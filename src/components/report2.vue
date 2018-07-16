@@ -110,7 +110,6 @@
 		pickerOptions1: {
           disabledDate(time) {
             return time.getTime() > Date.now();
-            
            }
           
           },
